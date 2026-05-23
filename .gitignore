@@ -1,0 +1,30 @@
+# Cypress assets
+cypress/screenshots/
+cypress/videos/
+cypress/downloads/
+
+# Environment variables & secrets
+cypress.env.json
+
+# Dependencies
+node_modules/
+
+
+# Large media files
+*.mp4
+*.tiff
+*.avi
+*.flv
+*.mov
+*.wmv
+
+#cypress
+
+cypress/reports
+cypress/snapshots/**/diffs
+cypress/reports/junit/*
+cucumber-messages.ndjson
+cucumber-report.html
+
+#env
+.env.dev
