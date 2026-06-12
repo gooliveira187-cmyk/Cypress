@@ -1,63 +1,59 @@
+import Login from "../pages/logins"
+import Inventory from "../pages/inventory"
+import Header from "../pages/header"
+import Card from "../pages/cart"
+import Information from "../pages/informations"
+
 describe ('Comprar produto', () => {
 
     it('Adicionar produto ao carrinho e efetuar compra', () => {
 
         // Arrange
-        cy.visit('https://www.saucedemo.com/')
-      
-        cy.get('[data-test="username"]').type('standard_user')
+        Login.visitarPagina()
+        Login.preencherCredenciaisUser1()
 
-        cy.get('[data-test=password]').type('secret_sauce')
+         cy.screenshot('Logando com  usuário no sistema')
 
-        cy.screenshot('Logando com  usuário no sistema')
+        const qtdItensAdicionados = 1
+        Inventory.adicionarProduto('Sauce Labs Fleece Jacket')
 
-        cy.get('[data-test="login-button"]').click()
+        Header.validarQueCarrinhoTemItens(qtdItensAdicionados)
 
-        cy.get('[data-test="add-to-cart-sauce-labs-backpack"]').click()
+        
 
-        cy.screenshot('Produto Adicionado')
+        
 
-        cy.get('.shopping_cart_badge')
-        .should('be.visible')
-        .and('have.text', 1)
+        Header.navegarParaCarrinho()
 
-        cy.get('#shopping_cart_container').click()
-
-        cy.contains('Sauce Labs Backpack').should('be.visible')
+        Card.validarProdutoNoCarrinho()
         
         
 
         //Act 
-        cy.get('[data-test="checkout"]').click()
+        Card.checarProduto()
 
+        Information.validarSuasInformacoes()
 
-        cy.get('[data-test="title"]')
-        .should('be.visible')
-        .and('have.text', 'Checkout: Your Information')
+        Information.informarNome()
 
-        cy.get('#first-name').type('Gabriel')
+        Information.informarSobrenome()
 
-        cy.get('#last-name').type('Nascimento')
+        Information.informarCEP()
 
-        cy.get('#postal-code').type('06764-020')
+        
 
-        cy.screenshot('Preenchendo dados pessoais para continuar com a compra')
+        Information.continuarInformacoes()
 
-        cy.get('#continue').click()
+        Information.validarVisaoGeral()
 
-        cy.get('.title').should('be.visible')
-        .and('have.text','Checkout: Overview')
+        
 
-        cy.screenshot('Finalizando a compra com as informações gerais')
-
-        cy.get('#finish').click()
-
+        Information.clicarFinalizarCompra()
         //Assert
 
-        cy.get('.title').should('be.visible').
-        and('have.text','Checkout: Complete!')
+        Information.pedidoRealizado()
 
-        cy.screenshot('Compra Finalizada com sucesso!')
+        
 
     })
 

@@ -1,58 +1,46 @@
+import Login from '../pages/logins'
+import inventory from '../pages/inventory'
+
+
 describe ('Login', () => {
 
 beforeEach(() => {
-cy.visit('https://www.saucedemo.com/')
+    Login.visitarPagina()
 })
 
 it ('Logar com primeiro usuário com sucesso', () => {
     
-        cy.get('[data-test="username"]').type('standard_user')
-
-        cy.get('[data-test=password]').type('secret_sauce')
-
-        cy.screenshot('credenciais user 1')
-
-        cy.get('[data-test="login-button"]').click()
-
-        cy.screenshot('Logando com primeiro usuário')
+      Login.preencherCredenciaisUser1()
 
       //Assert
-
-        cy.url().should('eq', 'https://www.saucedemo.com/inventory.html')
+      inventory.validarAcessoUser1()
+        
     })
 
     it ('Logar com segundo usuário com sucesso', () => {
-    
-        cy.get('[data-test="username"]').type('performance_glitch_user')
 
-        cy.get('[data-test=password]').type('secret_sauce')
-
-        cy.screenshot('credenciais user 2')
-
-        cy.get('[data-test="login-button"]').click()
-
-        cy.screenshot('Logando com segundo usuário')
+      Login.preencherCredenciaisUser2()
 
       //Assert
 
-        cy.url().should('eq', 'https://www.saucedemo.com/inventory.html')
+      inventory.validarAcessoUser2
     })
 
     it ('Logar com terceiro usuário com sucesso', () => {
-    
-        cy.get('[data-test="username"]').type('visual_user')
-
-        cy.get('[data-test=password]').type('secret_sauce')
-
-        cy.screenshot('credenciais user 3')
-
-        cy.get('[data-test="login-button"]').click()
-
-        cy.screenshot('Logando com terceiro usuário')
+      
+      Login.preencherCredenciaisUser3()
 
       //Assert
 
-        cy.url().should('eq', 'https://www.saucedemo.com/inventory.html')
+        inventory.validarAcessoUser3()
     })
+
+
+    it ('Tentativa de Login errado', () => {
+
+        Login.validarErroCredenciaisInvalidas()
+
+    })  
+
 
 }) 

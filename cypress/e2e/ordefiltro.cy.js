@@ -1,69 +1,58 @@
+import Login from '../pages/logins'
+import Header from '../pages/header'
+
 describe ('Ordenar e filtrar produto', () => {
 
     it('Ordenar de Z-A', () => {
-
+        
         // Arrange
-        cy.visit('https://www.saucedemo.com/')
-      
-        cy.get('[data-test="username"]').type('standard_user')
-
-        cy.get('[data-test=password]').type('secret_sauce')
-
-        cy.get('[data-test="login-button"]').click()
-
+        Login.visitarPagina()
+              
+        Login.preencherCredenciaisUser1()
+        
         //Act
-        cy.get('[data-test="product-sort-container"]').select(1)
-
+        Header.selecionarFiltroInventario1()
+        
         //Assert
         
-        cy.contains('Name (Z to A)').should('be.visible')
-
-        cy.screenshot('Ordem selecionada')
-
-
-        })  
+        Header.validaOrdemInvertida()
+        
+        
+        
+    })  
 
         it('Filtrar preços baixos', () => {
 
+        
         // Arrange
-        cy.visit('https://www.saucedemo.com/')
-      
-        cy.get('[data-test="username"]').type('standard_user')
-
-        cy.get('[data-test=password]').type('secret_sauce')
-
-        cy.get('[data-test="login-button"]').click()
-
+        Login.visitarPagina()
+              
+        Login.preencherCredenciaisUser2()
+        
         //Act
-        cy.get('[data-test="product-sort-container"]').select(2)
+        Header.selecionarFiltroInventario2()
 
         //Assert
         
-        cy.contains('Price (low to high)').should('be.visible')
-
-        cy.screenshot('Filtrando preços baixos para altos')
+        Header.validarpPrecosBaixos()
 
 
         })  
 
         
-it('Filtrar preços altos', () => {
+        it('Filtrar preços altos', () => {
 
-    // Arrange
-            cy.visit('https://www.saucedemo.com/')
-        
-            cy.get('[data-test="username"]').type('standard_user')
-            cy.get('[data-test=password]').type('secret_sauce')
-            cy.get('[data-test="login-button"]').click()
-           
+            // Arrange
+            Login.visitarPagina()
+                
+            Login.preencherCredenciaisUser1()
+            
             //Act
-           
-            cy.get('[data-test="product-sort-container"]').select(3)
+            Header.selecionarFiltroInventario3()
            
             //Assert
             
-            cy.contains('Price (high to low)').should('be.visible')
-            cy.screenshot('Filtrando preços altos para baixos')
+            Header.validarpPrecosAltos()
 
             })  
 

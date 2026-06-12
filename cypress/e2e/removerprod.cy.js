@@ -1,36 +1,38 @@
+import Login from "../pages/logins"
+import Inventory from "../pages/inventory"
+import Card from "../pages/cart"
+
+
 describe ('Remover do carrinho', () => {
 
     it('Remover produto do carrinho de compra', () => {
 
          // Arrange
-        cy.visit('https://www.saucedemo.com/')
+        Login.visitarPagina()
       
-        cy.get('[data-test="username"]').type('problem_user')
-
-        cy.get('[data-test=password]').type('secret_sauce')
+        Login.preencherCredenciaisUser2()
 
         cy.screenshot('Logando com  usuário no sistema')
 
-        cy.get('[data-test="login-button"]').click()
+        Inventory.adicionarProduto('Sauce Labs Onesie')
 
-        cy.get('[data-test="add-to-cart-sauce-labs-bike-light"]').click()
+        
 
-        cy.screenshot('Produto Adicionado')
+        Inventory.clicarCarrinho()
 
-        cy.get('.shopping_cart_badge').click()
-
-        cy.contains('Sauce Labs Bike Light').should('be.visible')
 
         //Act
-        cy.get('[data-test="remove-sauce-labs-bike-light"]').click()
+
+        Card.clicarItemCarrinho()
+        
+        
+        Card.removerItemCarrinho('Sauce Labs Onesie')
         
 
         //Assert
-        cy.get('.shopping_cart_badge').should('not.exist')
-
-        cy.screenshot('Produto Removido')
+        Card.itemRemovido()
         
-
+        
     
     })
 

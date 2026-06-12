@@ -17,6 +17,7 @@ module.exports = defineConfig({
   },
   chromeWebSecurity: false,
   e2e: {
+    supportFile: false,
     setupNodeEvents(on, config) {
      require('cypress-mochawesome-reporter/plugin')(on)
       // implement node event listeners here

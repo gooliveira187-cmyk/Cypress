@@ -1,36 +1,33 @@
+import Login from "../pages/logins"
+import inventory from '../pages/inventory'
+import Header from "../pages/header"
+
+
+
 describe('Logout', ()=> {
     
     beforeEach( ()=>{
-        cy.visit('https://www.saucedemo.com/')
+       Login.visitarPagina()
     })
     
     it('Fazendo logout com 1º conta', () => {
         //Arrange
-        
-        cy.get('[data-test="username"]').type('performance_glitch_user')
 
-        cy.get('[data-test=password]').type('secret_sauce')
+        Login.preencherCredenciaisUser2()
 
-        cy.get('[data-test="login-button"]').click()
+        inventory.validarAcessoUser2()
 
-        cy.screenshot('user 1 logado')
         
         //Act
 
-        cy.get('#react-burger-menu-btn').click()
+        Header.clicarBarraTodosItens()
 
-        cy.get('[data-test="logout-sidebar-link"]').should('be.visible')
-        .and('have.text','Logout')
-
-        cy.screenshot('Clicando em logout para sair da Homepage')
-
-        cy.get('#logout_sidebar_link').click()
+        Header.validarMenuTodosItens()
 
         //Assert
 
-        cy.contains('Accepted usernames are:').should('be.visible')
+        Header.clicarBotaoLogout()
 
-        cy.screenshot('Logout realizado com sucesso')
 
     })
 
@@ -39,29 +36,18 @@ describe('Logout', ()=> {
 
         //Arrange
 
-        cy.get('[data-test="username"]').type('problem_user')
+        Login.preencherCredenciaisUser1()
 
-        cy.get('[data-test=password]').type('secret_sauce')
-
-        cy.get('[data-test="login-button"]').click()
-
-        cy.screenshot('user 2 logado')
+        inventory.validarAcessoUser1()
 
         //Act
 
-        cy.get('#react-burger-menu-btn').click()
+        Header.clicarBarraTodosItens()
 
-        cy.get('[data-test="logout-sidebar-link"]').should('be.visible')
-        .and('have.text','Logout')
-
-        cy.screenshot('Clicando em logout para sair da Homepage')
-
-        cy.get('#logout_sidebar_link').click()
+        Header.validarMenuTodosItens()
 
         //Assert
 
-        cy.contains('Accepted usernames are:').should('be.visible')
-
-        cy.screenshot('Logout realizado com sucesso')
+        Header.clicarBotaoLogout()
     })
 })
