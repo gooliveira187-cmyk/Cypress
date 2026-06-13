@@ -3,13 +3,14 @@ const { defineConfig } = require("cypress");
 module.exports = defineConfig({
   reporter: 'cypress-multi-reporters',
   reporterOptions: {
-    reporterEnable: 'cypress-mochawesome-reporter, mocha-junit-reporter',
+    reporterEnabled: 'cypress-mochawesome-reporter, mocha-junit-reporter', // Corrigido para "Enabled"
     mochaJunitReporterReporterOptions: {
-    mochaFile: 'cypress/reports/junit/results-[hash].xml'
-    },  
-    cypressMochawesomeReporterReporterOption: {
+      mochaFile: 'cypress/reports/junit/results-[hash].xml'
+    },
+    // Adicionado o "s" em Options
+    cypressMochawesomeReporterReporterOptions: {
       charts: true,
-      reporterPageTitles: 'Relatório de testes',
+      reportPageTitle: 'Relatório de testes', // O termo correto é reportPageTitle (singular)
       embeddedScreenshots: true,
       inlineAssets: true,
       saveAllAttempts: false
@@ -19,8 +20,8 @@ module.exports = defineConfig({
   e2e: {
     supportFile: false,
     setupNodeEvents(on, config) {
-     require('cypress-mochawesome-reporter/plugin')(on)
-      // implement node event listeners here
+      // Importante: O plugin do mochawesome deve ser inicializado aqui
+      require('cypress-mochawesome-reporter/plugin')(on);
     },
   },
 });
